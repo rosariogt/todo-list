@@ -1,5 +1,5 @@
-import {  Component } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
+import {  Component, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, FormsModule, Validators, NgForm, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-addTask',
@@ -13,7 +13,26 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveForms
   ],
 })
 
-export class AddComponent {
+export class AddComponent implements OnInit{
+
+  constructor(private fb: FormBuilder) {
+
+  }
+
+  form!: FormGroup;
+
+  ngOnInit(): void {
+      this.form = this.fb.group({
+        title: new FormControl('', [Validators.required, Validators.maxLength(10)])
+      })
+  }
+
+  sendTaskTitle() {
+    if(this.form.valid) {
+      console.log(this.form.value.title);
+    }
+  }
+
 
   numberTask: number = 10;
   titleTask: string = ""

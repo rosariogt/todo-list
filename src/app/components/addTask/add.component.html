@@ -1,5 +1,26 @@
 <h1>Numero de tarea: {{numberTask}}</h1>
-<span>Titulo de tarea: {{titleTask}}</span>
+<span>Titulo de tarea: {{form.get('title')?.value}}</span>
+
+@if(form.get('title')?.invalid && (form.get('title')?.dirty || form.get('title')?.touched)) {
+  <div>
+    @if (form.get('title')?.errors?.['required']) {
+      <small>
+        El titulo es requerido
+      </small>
+    }
+    @if (form.get('title')?.errors?.['maxlength']) {
+      <small>
+        Maximo de caracteres 10
+      </small>
+    }
+  </div>
+}
+
+<form class="container_input" [formGroup]="form" (ngSubmit)="sendTaskTitle()">
+  <input type="text" placeholder="Ingresa tarea" formControlName="title">
+  <button type="submit" [disabled]="!form.valid">Enviar</button>
+</form>
+
 
 
 <!-- Formularios de plantilla -->
