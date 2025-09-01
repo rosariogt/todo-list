@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, OnDestroy, OnInit } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-addTask',
@@ -17,6 +17,10 @@ export class AddComponent {
   numberTask: number = 10;
   titleTask: string = ""
   activeButton: boolean = true
+
+  sendData(form: NgForm) {
+
+  }
 
   sendTask() {
     const sizeTitleTask = this.titleTask.split('')

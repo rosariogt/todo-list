@@ -1,6 +1,17 @@
 <h1>Numero de tarea: {{numberTask}}</h1>
 <span>Titulo de tarea: {{titleTask}}</span>
-<div class="container_input">
-  <input (input)="sendTask()" type="text" placeholder="ingresar tarea" [(ngModel)]="titleTask">
-  <button (click)="sendTask()" [disabled]="activeButton">Ingresar tarea</button>
-</div>
+
+@if(myInput.invalid && (myInput.dirty || myInput.touched)) {
+  <p>
+    @if (myInput.errors?.['required']) {
+      <span>Este campo es requerido</span>
+    }
+  </p>
+}
+
+<form class="container_input" #myForm = "ngForm" (ngSubmit)="myForm">
+  <input type="text" placeholder="ingresar tarea" [(ngModel)]="titleTask" #myInput = "ngModel" name="taskTitle" required>
+  <button type="submit" [disabled]="!myInput.valid">Ingresar tarea</button>
+</form>
+
+{{myInput.valid}}
