@@ -1,5 +1,5 @@
-import { AfterContentInit, Component, OnDestroy, OnInit } from "@angular/core";
-import { FormsModule, NgForm } from "@angular/forms";
+import {  Component } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-addTask',
@@ -8,7 +8,8 @@ import { FormsModule, NgForm } from "@angular/forms";
   standalone: true,
   imports: [
     // ... other imports
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 
@@ -19,7 +20,10 @@ export class AddComponent {
   activeButton: boolean = true
 
   sendData(form: NgForm) {
+    if(form.valid) {
+      console.log(this.titleTask);
 
+    }
   }
 
   sendTask() {
