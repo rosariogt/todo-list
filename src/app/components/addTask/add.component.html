@@ -1,7 +1,9 @@
 <h1>Numero de tarea: {{numberTask}}</h1>
 <span>Titulo de tarea: {{titleTask}}</span>
 
-@if(myInput.invalid && (myInput.dirty || myInput.touched)) {
+
+<!-- Formularios de plantilla -->
+<!-- @if(myInput.invalid && (myInput.dirty || myInput.touched)) {
   <p>
     @if (myInput.errors?.['required']) {
       <span>Este campo es requerido</span>
@@ -14,4 +16,4 @@
   <button type="submit" [disabled]="!myInput.valid">Ingresar tarea</button>
 </form>
 
-{{myInput.valid}}
+{{myInput.valid}} -->
