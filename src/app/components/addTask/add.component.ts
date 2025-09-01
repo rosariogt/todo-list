@@ -1,31 +1,32 @@
 import { AfterContentInit, Component, OnDestroy, OnInit } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-addTask',
   templateUrl: './add.component.html',
   styleUrl: './add.component.scss',
-  standalone: true
+  standalone: true,
+  imports: [
+    // ... other imports
+    FormsModule
+  ],
 })
 
-export class AddComponent implements OnDestroy, AfterContentInit {
+export class AddComponent {
 
-  ngAfterContentInit(): void {
-    console.log("El contenido ha sido inicializado");
+  numberTask: number = 10;
+  titleTask: string = ""
+  activeButton: boolean = true
 
-  }
-
-  ngOnDestroy(): void {
-    console.log("Componente ha sido destruido");
-  }
-
-/*   constructor() {
-    console.log("Creqandose desde el contructor")
-  }
-
-  ngOnInit(): void {
-    console.log("Creqandose desde on init ");
+  sendTask() {
+    const sizeTitleTask = this.titleTask.split('')
+    if(sizeTitleTask.length > 0) {
+      this.activeButton = false
+    } else {
+      this.activeButton = true
+    }
+    console.log(`Tarea enviada con exito ${this.titleTask}`);
 
   }
- */
 
 }

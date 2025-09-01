@@ -1,20 +1,4 @@
 <app-addTask>
-  <p>Este es el contenido que quiero mostrar dentro de add component</p>
-  <button>presionar</button>
 </app-addTask>
 <app-list-task></app-list-task>
-<div> valor actual
-  {{value}}
-</div>
-@if(changesDetected) {
-  <p>Cambios detectados</p>
-}
-<button (click)="updateValue()">Actualizar valor</button>
-<!-- @if(isDestroyed) {
-  <app-addTask></app-addTask>
-}
-<app-list-task></app-list-task>
-<div>
-  {{countDown}}
-</div> -->
 <router-outlet></router-outlet>

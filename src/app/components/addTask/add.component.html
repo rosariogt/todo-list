@@ -1,8 +1,6 @@
-<h1>
-  COMPONENTE PARA AGREGAR TAREAS
-</h1>
-
-<div class="child_container">
-  <h2>Componente hijo</h2>
-  <ng-content></ng-content>
+<h1>Numero de tarea: {{numberTask}}</h1>
+<span>Titulo de tarea: {{titleTask}}</span>
+<div class="container_input">
+  <input (input)="sendTask()" type="text" placeholder="ingresar tarea" [(ngModel)]="titleTask">
+  <button (click)="sendTask()" [disabled]="activeButton">Ingresar tarea</button>
 </div>
