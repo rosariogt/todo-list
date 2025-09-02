@@ -1,5 +1,6 @@
 import {  Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators, NgForm, ReactiveFormsModule } from "@angular/forms";
+import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-addTask',
@@ -10,7 +11,9 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, Validators, NgForm, R
     // ... other imports
     FormsModule,
     ReactiveFormsModule,
-  ],
+    NgClass,
+    NgStyle
+],
 })
 
 export class AddComponent implements OnInit{
@@ -19,7 +22,9 @@ export class AddComponent implements OnInit{
 
   }
 
+  isActive: boolean = true;
   form!: FormGroup;
+  taskActive!: Boolean;
 
   ngOnInit(): void {
       this.form = this.fb.group({
@@ -28,15 +33,18 @@ export class AddComponent implements OnInit{
   }
 
   sendTaskTitle() {
-    if(this.form.valid) {
+    if(this.form.valid && this.form.get('title')?.value !== '') {
+      this.taskActive = true;
       console.log(this.form.value.title);
+    } else {
+      this.taskActive = false;
     }
   }
 
-
-  numberTask: number = 10;
+  numberTask: number = 14;
   titleTask: string = ""
   activeButton: boolean = true
+  tasks: any[] = ['tarea1', 'tarea2', 'tarea3']
 
   sendData(form: NgForm) {
     if(form.valid) {

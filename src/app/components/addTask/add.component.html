@@ -1,5 +1,6 @@
-<h1>Numero de tarea: {{numberTask}}</h1>
-<span>Titulo de tarea: {{form.get('title')?.value}}</span>
+<h1 [ngClass]="{'r1-5': (numberTask >= 1 && numberTask <= 5),
+'r5-10': (numberTask > 5 && numberTask <= 10), 'r10-15': (numberTask > 10)}">Numero de tarea: {{numberTask}}</h1>
+<span [ngStyle]="{'color': isActive ? 'green' : 'red'}">Titulo de tarea: {{form.get('title')?.value}}</span>
 
 @if(form.get('title')?.invalid && (form.get('title')?.dirty || form.get('title')?.touched)) {
   <div>
@@ -13,6 +14,19 @@
         Maximo de caracteres 10
       </small>
     }
+  </div>
+}
+
+@if (taskActive) {
+  <span>No puedes mandar una tarea sin titulo</span>
+}
+
+<hr>
+<h2>Tareas</h2>
+@for (item of tasks; track $index) {
+  <div>
+    <small>{{$index}}</small>
+    {{item}}
   </div>
 }
 
