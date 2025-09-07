@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, DoCheck } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AddComponent } from './components/addTask/add.component';
 import { ListTaskComponent } from './components/list-task/list-task.component';
 import { Task } from './models/task.model';
+import { TasksService } from './services/tasks.service';
 
 @Component({
   selector: 'app-root',
@@ -11,26 +12,33 @@ import { Task } from './models/task.model';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements DoCheck {
+export class AppComponent implements OnInit {
 
   value: number = 0;
   previousValue: number = 0;
   changesDetected: boolean = false;
   cambio: boolean = false;
-
   tasks: Task[] = [
   ]
 
+  constructor(private service:TasksService) {
+
+  }
+
+  ngOnInit(): void {
+    this.tasks = this.service.getTasks()
+  }
+
   addTask(task: Task):void {
-    this.tasks.push(task)
+    this.service.addTask(task)
   }
 
   markTaskCompleted(task: Task) {
-    task.completed = !task.completed
+    this.service.completeTask(task.id)
   }
 
   deleteTask(id: number) {
-    this.tasks = this.tasks.filter((task) => task.id !== id)
+    this.service.deleteTask(id)
   }
 
   updateValue(): void {
@@ -40,31 +48,4 @@ export class AppComponent implements DoCheck {
     }, 1000)
   }
 
-  ngDoCheck(): void {
-    if (this.value !== this.previousValue) {
-      this.changesDetected = true;
-      this.previousValue = this.value
-    }
-  }
-
-/*   ngAfterViewInit(): void {
-    console.log("Han sido inicializadps la vista del componente y la vista de los hijos");
-  }
-
-  title = 'todo-list'; */
-
-/*   isDestroyed: boolean = true;
-  countDown: number;
-  intervalID: any;
-
-  constructor(){
-    this.countDown = 10;
-    this.intervalID = setInterval(() => {
-      this.countDown--;
-      if (this.countDown === 0) {
-        clearInterval(this.intervalID)
-        this.isDestroyed = false
-      }
-    }, 1000)
-  } */
 }
