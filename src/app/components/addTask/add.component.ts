@@ -1,18 +1,23 @@
 import {  Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators, NgForm, ReactiveFormsModule } from "@angular/forms";
-import { NgClass, NgStyle } from '@angular/common';
+import { CommonModule, NgClass, NgStyle } from '@angular/common';
+import { Task } from "../../models/task.model";
+import { StatusTaskDirective } from "../../directives/status-task.directive";
+import { ConfirmDeleteDirective } from "../../directives/confirm-delete.directive";
 
 @Component({
   selector: 'app-addTask',
   templateUrl: './add.component.html',
-  styleUrl: './add.component.scss',
+  styleUrls: ['./add.component.scss'],
   standalone: true,
   imports: [
     // ... other imports
     FormsModule,
     ReactiveFormsModule,
     NgClass,
-    NgStyle
+    NgStyle,
+    StatusTaskDirective,
+    ConfirmDeleteDirective
 ],
 })
 
@@ -22,9 +27,58 @@ export class AddComponent implements OnInit{
 
   }
 
+  numberTasks!: number
   isActive: boolean = true;
   form!: FormGroup;
   taskActive!: Boolean;
+
+    tasks: Task[] = [
+    {
+      id: 1,
+      title: "Tarea 1",
+      completed: false
+    },
+    {
+      id: 2,
+      title: "Tarea 2",
+      completed: false
+    },
+    {
+      id: 3,
+      title: "Tarea 3",
+      completed: false
+    },
+    {
+      id: 4,
+      title: "Tarea 4",
+      completed: false
+    },
+    {
+      id: 5,
+      title: "Tarea 5",
+      completed: false
+    },
+    {
+      id: 6,
+      title: "Tarea 6",
+      completed: false
+    },
+    {
+      id: 7,
+      title: "Tarea 7",
+      completed: false
+    },
+    {
+      id: 8,
+      title: "Tarea 8",
+      completed: false
+    },
+    {
+      id: 9,
+      title: "Tarea 9",
+      completed: false
+    }
+  ]
 
   ngOnInit(): void {
       this.form = this.fb.group({
@@ -44,7 +98,7 @@ export class AddComponent implements OnInit{
   numberTask: number = 14;
   titleTask: string = ""
   activeButton: boolean = true
-  tasks: any[] = ['tarea1', 'tarea2', 'tarea3']
+  //tasks: any[] = ['tarea1', 'tarea2', 'tarea3']
 
   sendData(form: NgForm) {
     if(form.valid) {
@@ -64,4 +118,12 @@ export class AddComponent implements OnInit{
 
   }
 
+  markTaskCompleted(task: Task) {
+    task.completed = !task.completed
+  }
+
+  delete(id: number) {
+    this.tasks = this.tasks.filter((task) => task.id !== id)
+    this.numberTasks = this.tasks.length
+  }
 }

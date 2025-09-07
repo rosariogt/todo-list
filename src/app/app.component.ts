@@ -2,6 +2,7 @@ import { AfterViewInit, Component, DoCheck } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AddComponent } from './components/addTask/add.component';
 import { ListTaskComponent } from './components/list-task/list-task.component';
+import { Task } from './models/task.model';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,8 @@ export class AppComponent implements DoCheck {
   value: number = 0;
   previousValue: number = 0;
   changesDetected: boolean = false;
+
+
 
   updateValue(): void {
     this.value++;
