@@ -16,8 +16,22 @@ export class AppComponent implements DoCheck {
   value: number = 0;
   previousValue: number = 0;
   changesDetected: boolean = false;
+  cambio: boolean = false;
 
+  tasks: Task[] = [
+  ]
 
+  addTask(task: Task):void {
+    this.tasks.push(task)
+  }
+
+  markTaskCompleted(task: Task) {
+    task.completed = !task.completed
+  }
+
+  deleteTask(id: number) {
+    this.tasks = this.tasks.filter((task) => task.id !== id)
+  }
 
   updateValue(): void {
     this.value++;

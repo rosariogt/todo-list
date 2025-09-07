@@ -1,4 +1,4 @@
-import {  Component, OnInit } from "@angular/core";
+import {  Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators, NgForm, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule, NgClass, NgStyle } from '@angular/common';
 import { Task } from "../../models/task.model";
@@ -27,12 +27,14 @@ export class AddComponent implements OnInit{
 
   }
 
+  @Output() taskAdded: EventEmitter<Task> = new EventEmitter<Task>()
+
   numberTasks!: number
   isActive: boolean = true;
   form!: FormGroup;
   taskActive!: Boolean;
 
-    tasks: Task[] = [
+  tasks: Task[] = [
     {
       id: 1,
       title: "Tarea 1",
@@ -88,6 +90,13 @@ export class AddComponent implements OnInit{
 
   sendTaskTitle() {
     if(this.form.valid && this.form.get('title')?.value !== '') {
+      const newTask: Task = {
+        id: Math.floor(Math.random() * 1000),
+        title: this.form.value.title,
+        completed: false
+      };
+      this.taskAdded.emit(newTask);
+      this.form.reset();
       this.taskActive = true;
       console.log(this.form.value.title);
     } else {
@@ -103,7 +112,6 @@ export class AddComponent implements OnInit{
   sendData(form: NgForm) {
     if(form.valid) {
       console.log(this.titleTask);
-
     }
   }
 

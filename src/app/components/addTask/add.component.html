@@ -1,9 +1,6 @@
-<h1 class="number_task" [ngClass]="{'r1-5': (numberTask >= 1 && numberTask <= 5),
-'r5-10': (numberTask > 5 && numberTask <= 10), 'r10-15': (numberTask > 10)}">Numero de tarea: {{numberTask}}</h1>
-<!-- <span [ngStyle]="{'color': isActive ? 'green' : 'red'}">Titulo de tarea: {{form.get('title')?.value}}</span> -->
 
 @if(form.get('title')?.invalid && (form.get('title')?.dirty || form.get('title')?.touched)) {
-  <div>
+  <div class="container_warning">
     @if (form.get('title')?.errors?.['required']) {
       <small>
         El titulo es requerido
@@ -21,22 +18,6 @@
   <span>No puedes mandar una tarea sin titulo</span>
 }
 
-
-<h2>Tareas</h2>
-<div class="container_task" [ngStyle]="{'justify-content': tasks.length === 0? 'center':''}">
-  @for (task of tasks; track $index) {
-    <div class="task">
-      <span [ngClass]="{'subrayar': task.completed}" [appStatusTask]="task.completed">{{task.title}}</span>
-      <input class="task_check" type="checkbox" [checked]="task.completed" (change)="markTaskCompleted(task)">
-      <button class="task_delete" (click)="delete(task.id)" [appConfirmDelete]="task.title">eliminar</button>
-    </div>
-  }
-  @if(tasks.length === 0) {
-    <span [ngStyle]="{'color': 'white'}" >
-      No hay tareas
-    </span>
-  }
-</div>
 
 <form class="container_input" [formGroup]="form" (ngSubmit)="sendTaskTitle()">
   <input type="text" placeholder="Ingresa tarea" formControlName="title">
