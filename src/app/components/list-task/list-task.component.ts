@@ -19,6 +19,7 @@ import { StatusTaskDirective } from '../../directives/status-task.directive';
 export class ListTaskComponent {
 
   @Input('listTask') tasks: Task[] = []
+  @Input() taskUpload: Task[] = []
   @Output() taskCompleted: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() taskDelete: EventEmitter<number> = new EventEmitter<number>();
 

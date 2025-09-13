@@ -1,6 +1,8 @@
 <app-addTask (taskAdded)="addTask($event)">
 </app-addTask>
-<app-list-task [listTask]="tasks"
+<app-list-task
+[listTask]="tasks"
+[taskUpload]="taskUpload"
 (taskCompleted)="markTaskCompleted($event)"
 (taskDelete)="deleteTask($event)"
 ></app-list-task>

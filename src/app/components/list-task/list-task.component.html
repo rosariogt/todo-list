@@ -1,18 +1,40 @@
 <h1 class="number_task" >Numero de tarea: {{this.tasks.length}}</h1>
 
 <h2 class="title">Tareas</h2>
-<div class="container_task" [ngStyle]="{'justify-content': tasks.length === 0? 'center':''}">
-  @for (task of tasks; track $index) {
-    <div class="task">
-      <small>{{task.id}} </small>
-      <span [ngClass]="{'subrayar': task.completed}" [appStatusTask]="task.completed">{{task.title}}</span>
-      <input class="task_check" type="checkbox" [checked]="task.completed" (change)="completedTask(task)">
-      <button class="task_delete" (click)="deleteTask(task.id)" [appConfirmDelete]="task.title">eliminar</button>
-    </div>
-  }
-  @if(tasks.length === 0) {
-    <span [ngStyle]="{'color': 'white'}" >
-      No hay tareas
-    </span>
-  }
+<div class="flex">
+  <div class="container_task" [ngStyle]="{'justify-content': tasks.length === 0? 'center':''}">
+    @for (task of tasks; track $index) {
+      <div class="task">
+        <small>{{task.id}} </small>
+        <span [ngClass]="{'subrayar': task.completed}" [appStatusTask]="task.completed">{{task.title}}</span>
+        <input class="task_check" type="checkbox" [checked]="task.completed" (change)="completedTask(task)">
+        <button class="task_delete" (click)="deleteTask(task.id)" [appConfirmDelete]="task.title">eliminar</button>
+      </div>
+    }
+    @if(tasks.length === 0) {
+      <span [ngStyle]="{'color': 'white'}" >
+        No hay tareas
+      </span>
+    }
+  </div>
+  <div class="container_task">
+    @for (task of taskUpload; track $index) {
+      <div class="task">
+        <small>
+          @if (!task.completed) {
+            <span class="status" [appStatusTask]="task.completed" >
+              Pendiente
+            </span>
+          }
+          @if (task.completed) {
+            <span class="status" [appStatusTask]="task.completed" >
+              Completa
+            </span>
+          }
+          {{task.title}}
+        </small>
+      </div>
+    }
+  </div>
 </div>
+
